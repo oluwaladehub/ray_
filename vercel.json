@@ -1,4 +1,6 @@
 {
+  "buildCommand": "node scripts/generate-public-config.mjs",
+  "outputDirectory": ".",
   "headers": [
     {
       "source": "/assets/js/public-config.js",
