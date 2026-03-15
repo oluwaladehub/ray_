@@ -17,8 +17,8 @@ function renderHeader(page) {
   const host = document.getElementById("site-header");
   if (!host) return;
   const activeShortlet = page === "shortlet";
-  const activeHousing = page === "sale" || page === "housing";
-  const activeLand = page === "land";
+  const activeHousing = page === "R&C Properties" || page === "housing";
+  const activeLand = page === "Landed Properties" || page === "land";
   const activeDistress = page === "distress";
   const activeContact = page === "contact";
 
@@ -46,8 +46,8 @@ function renderHeader(page) {
               </svg>
             </button>
           </div>
-          ${link("Sales", "/housing.html", activeHousing)}
-          ${link("Land", "/land.html", activeLand)}
+          ${link("R&C Properties", "/housing.html", activeHousing)}
+          ${link("Landed Properties", "/land.html", activeLand)}
           ${link("Distress", "/distress-sale.html", activeDistress, "data-distress-nav")}
           ${link("Contact", "/snagging.html", activeContact)}
         </nav>

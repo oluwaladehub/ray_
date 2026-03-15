@@ -153,9 +153,9 @@ function updateTypeLabel(typeLabelEl, transactionType, categoryInputEl) {
 
 function getTabLabel(transactionType) {
   const labels = {
-    sale: "Sale",
+    sale: "R&C Properties",
     rent: "Shortlet",
-    lease: "Land",
+    lease: "Landed Properties",
     commercial: "Distress",
   };
 
