@@ -203,7 +203,7 @@ function propertyTemplate(property) {
   return `
     <section class="shortlet-page-head">
       <div class="property-breadcrumb">
-        <a href="/">Home</a> / <a href="${collectionPageForType(pageType)}">${typeTitle}</a> / <span>${escapeHtml(property.title)}</span>
+        <a href="/index.html">Home</a> / <a href="${collectionPageForType(pageType)}">${typeTitle}</a> / <span>${escapeHtml(property.title)}</span>
       </div>
       <div class="detail-top-row">
         <div>
@@ -276,7 +276,7 @@ function shortletPropertyTemplate(property) {
   return `
     <section class="shortlet-page-head">
       <div class="property-breadcrumb">
-        <a href="/">Home</a> / <a href="/shortlet">Shortlet</a> / <span>${escapeHtml(property.title)}</span>
+        <a href="/index.html">Home</a> / <a href="/shortlet.html">Shortlet</a> / <span>${escapeHtml(property.title)}</span>
       </div>
       <h1 class="shortlet-title">${escapeHtml(property.title)}${property.bedrooms ? `: ${property.bedrooms}-Bedroom Luxury Shortlet` : ""}</h1>
       <p class="shortlet-meta">${parts.join(" | ")}</p>
@@ -600,7 +600,7 @@ async function submitPublicEnquiry(payload) {
 
 function similarCardTemplate(item) {
   return `
-    <a class="card" href="${detailPageForType(pageType)}/${encodeURIComponent(item.slug)}">
+    <a class="card" href="${detailPageForType(pageType)}?slug=${encodeURIComponent(item.slug)}">
       <img class="card-image" src="${escapeHtml(item.imageUrls[0] || "")}" alt="${escapeHtml(item.title)}" loading="lazy">
       <div class="card-body">
         <h3>${escapeHtml(item.title)}</h3>
@@ -612,13 +612,13 @@ function similarCardTemplate(item) {
 }
 
 function detailPageForType(type) {
-  if (type === "land") return "/land";
-  if (type === "shortlet") return "/shortlet";
-  return "/housing";
+  if (type === "land") return "/land-property.html";
+  if (type === "shortlet") return "/shortlet-property.html";
+  return "/housing-property.html";
 }
 
 function collectionPageForType(type) {
-  if (type === "land") return "/land";
-  if (type === "shortlet") return "/shortlet";
-  return "/housing";
+  if (type === "land") return "/land.html";
+  if (type === "shortlet") return "/shortlet.html";
+  return "/housing.html";
 }

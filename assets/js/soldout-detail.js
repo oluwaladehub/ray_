@@ -50,7 +50,7 @@ async function renderPage() {
   }
 
   if (!isSoldOutTag(property.tag)) {
-    window.location.replace(`${detailPageForType(property.propertyType)}/${encodeURIComponent(property.slug)}`);
+    window.location.replace(`${detailPageForType(property.propertyType)}?slug=${encodeURIComponent(property.slug)}`);
     return;
   }
 
@@ -179,7 +179,7 @@ function soldOutTemplate(property) {
   return `
     <section class="shortlet-page-head">
       <div class="property-breadcrumb">
-        <a href="/">Home</a> / <a href="/distress-sale">Distress Sale</a> / <span>${escapeHtml(property.title)}</span>
+        <a href="/index.html">Home</a> / <a href="/distress-sale.html">Distress Sale</a> / <span>${escapeHtml(property.title)}</span>
       </div>
       <div class="detail-top-row">
         <div>
@@ -237,7 +237,7 @@ function soldOutTemplate(property) {
           <h2>Property Sold Out</h2>
           <p>This distress property is no longer available.</p>
           <div class="form-row">
-            <a class="btn btn-primary" href="/distress-sale">Back to Distress Sale</a>
+            <a class="btn btn-primary" href="/distress-sale.html">Back to Distress Sale</a>
           </div>
         </article>
         <div class="shortlet-security-note">
@@ -297,16 +297,16 @@ function similarCardTemplate(item) {
 }
 
 function detailPageForType(type) {
-  if (type === "land") return "/land";
-  if (type === "shortlet") return "/shortlet";
-  return "/housing";
+  if (type === "land") return "/land-property.html";
+  if (type === "shortlet") return "/shortlet-property.html";
+  return "/housing-property.html";
 }
 
 function detailHrefForItem(item) {
   if (isSoldOutTag(item.tag)) {
-    return `/soldout/${encodeURIComponent(item.slug)}`;
+    return `/soldout-property.html?slug=${encodeURIComponent(item.slug)}`;
   }
-  return `${detailPageForType(item.propertyType)}/${encodeURIComponent(item.slug)}`;
+  return `${detailPageForType(item.propertyType)}?slug=${encodeURIComponent(item.slug)}`;
 }
 
 function typeLabel(type) {

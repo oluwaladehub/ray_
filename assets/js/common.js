@@ -25,8 +25,8 @@ function renderHeader(page) {
   host.innerHTML = `
     <div class="site-header">
       <div class="container header-inner">
-        <a href="/" class="brand" aria-label="RaretifiedRealty home">
-          <img src="ray.jpeg" alt="RaretifiedRealty logo">
+        <a href="/index.html" class="brand" aria-label="RaretifiedRealty home">
+          <img src="/ray.jpeg" alt="RaretifiedRealty logo">
           <span>RaretifiedRealty</span>
         </a>
         <button class="mobile-toggle" id="mobile-toggle" type="button" aria-label="Open menu">
@@ -36,8 +36,8 @@ function renderHeader(page) {
         </button>
         <nav class="nav" id="primary-nav">
           <div class="nav-mobile-head">
-            <a href="/" class="brand nav-mobile-brand" aria-label="RaretifiedRealty home">
-              <img src="ray.jpeg" alt="RaretifiedRealty logo">
+            <a href="/index.html" class="brand nav-mobile-brand" aria-label="RaretifiedRealty home">
+              <img src="/ray.jpeg" alt="RaretifiedRealty logo">
               <span>RaretifiedRealty</span>
             </a>
             <button class="nav-close" id="nav-close" type="button" aria-label="Close menu">
@@ -46,17 +46,18 @@ function renderHeader(page) {
               </svg>
             </button>
           </div>
-          ${link("Shortlet", "/shortlet", activeShortlet, "data-shortlet-nav")}
-          ${link("Sales", "/housing", activeHousing)}
-          ${link("Land", "/land", activeLand)}
-          ${link("Distress", "/distress-sale", activeDistress, "data-distress-nav")}
-          ${link("Contact", "/snagging", activeContact)}
+          ${link("Sales", "/housing.html", activeHousing)}
+          ${link("Land", "/land.html", activeLand)}
+          ${link("Distress", "/distress-sale.html", activeDistress, "data-distress-nav")}
+          ${link("Contact", "/snagging.html", activeContact)}
         </nav>
         <button class="nav-backdrop" id="nav-backdrop" type="button" aria-label="Close menu"></button>
       </div>
     </div>
   `;
 }
+
+// ${link("Shortlet", "/shortlet.html", activeShortlet, "data-shortlet-nav")}
 
 function link(text, href, active, extraAttrs = "") {
   const className = active ? "active" : "";
@@ -76,7 +77,7 @@ function renderFooter() {
       <div class="container footer-inner">
         <div class="footer-brand-col">
           <div class="brand">
-            <img src="ray.jpeg" alt="RaretifiedRealty logo">
+            <img src="/ray.jpeg" alt="RaretifiedRealty logo">
             <span>RaretifiedRealty</span>
           </div>
           <p class="footer-copy">Copyright ${getYear()} RaretifiedRealty</p>
@@ -245,7 +246,7 @@ async function syncDistressVisibility(page) {
   });
 
   if (!enabled && page === "distress") {
-    window.location.replace("/");
+    window.location.replace("/index.html");
   }
 }
 
@@ -263,6 +264,6 @@ async function syncShortletVisibility(page) {
   });
 
   if (!enabled && page === "shortlet") {
-    window.location.replace("/");
+    window.location.replace("/index.html");
   }
 }

@@ -216,7 +216,7 @@ function housingCardTemplate(item) {
   const size = escapeHtml(item.specs?.size || "-");
   const slides = mediaSliderTemplate(item.gallery, item.title);
   return `
-    <a class="home-listing-card home-housing-card" href="/housing/${encodeURIComponent(item.slug)}">
+    <a class="home-listing-card home-housing-card" href="${detailHrefForProperty(item)}">
       <div class="home-listing-media">
         ${slides}
         <span class="home-listing-price">${formatPrice(item.price)}</span>
@@ -239,7 +239,7 @@ function housingCardTemplate(item) {
 function landCardTemplate(item) {
   const slides = mediaSliderTemplate(item.gallery, item.title);
   return `
-    <a class="home-listing-card home-land-card" href="/land/${encodeURIComponent(item.slug)}">
+    <a class="home-listing-card home-land-card" href="${detailHrefForProperty(item)}">
       <div class="home-listing-media">
         ${slides}
       </div>
@@ -266,9 +266,9 @@ function renderShortletCollection() {
 }
 
 function detailPageForType(type) {
-  if (type === "land") return "/land";
-  if (type === "shortlet") return "/shortlet";
-  return "/housing";
+  if (type === "land") return "/land-property.html";
+  if (type === "shortlet") return "/shortlet-property.html";
+  return "/housing-property.html";
 }
 
 function isSoldOutTag(tag) {
@@ -277,9 +277,9 @@ function isSoldOutTag(tag) {
 
 function detailHrefForProperty(item) {
   if (isSoldOutTag(item.tag)) {
-    return `/soldout/${encodeURIComponent(item.slug)}`;
+    return `/soldout-property.html?slug=${encodeURIComponent(item.slug)}`;
   }
-  return `${detailPageForType(item.propertyType)}/${encodeURIComponent(item.slug)}`;
+  return `${detailPageForType(item.propertyType)}?slug=${encodeURIComponent(item.slug)}`;
 }
 
 function distressCardTemplate(item) {
@@ -314,7 +314,7 @@ function shortletCardTemplate(item) {
   const slides = mediaSliderTemplate(item.gallery, item.title);
   const amenities = Array.isArray(item.amenities) ? item.amenities.slice(0, 3) : [];
   return `
-    <a class="home-shortlet-card" href="/shortlet/${encodeURIComponent(item.slug)}">
+    <a class="home-shortlet-card" href="${detailHrefForProperty(item)}">
       <div class="home-shortlet-media">
         ${slides}
       </div>
@@ -333,11 +333,11 @@ function shortletCardTemplate(item) {
 function resolveCollectionDestination(state) {
   const transactionType = String(state.transactionType || "").toLowerCase();
   const category = String(state.category || "").toLowerCase();
-  if (category === "land") return "/land";
-  if (transactionType === "rent") return "/shortlet";
-  if (transactionType === "commercial") return "/distress-sale";
-  if (transactionType === "lease") return "/land";
-  return "/housing";
+  if (category === "land") return "/land.html";
+  if (transactionType === "rent") return "/shortlet.html";
+  if (transactionType === "commercial") return "/distress-sale.html";
+  if (transactionType === "lease") return "/land.html";
+  return "/housing.html";
 }
 
 function mediaSliderTemplate(images, title) {
@@ -388,6 +388,9 @@ function initHomeMediaSliders() {
     }
 
     let index = 0;
+    let pointerStartX = null;
+    let activePointerId = null;
+    let suppressClick = false;
 
     const sync = () => {
       track.style.transform = `translateX(-${index * 100}%)`;
@@ -397,6 +400,13 @@ function initHomeMediaSliders() {
     };
 
     slider.addEventListener("click", (event) => {
+      if (suppressClick && !event.target.closest("[data-slide-dir],[data-slide-to]")) {
+        event.preventDefault();
+        event.stopPropagation();
+        suppressClick = false;
+        return;
+      }
+
       const nav = event.target.closest("[data-slide-dir]");
       if (nav) {
         event.preventDefault();
@@ -417,6 +427,34 @@ function initHomeMediaSliders() {
         sync();
       }
     });
+
+    const onSwipe = (deltaX) => {
+      if (Math.abs(deltaX) < 35) return;
+      index = deltaX < 0
+        ? (index + 1 + slides.length) % slides.length
+        : (index - 1 + slides.length) % slides.length;
+      slider.classList.add("is-interacted");
+      suppressClick = true;
+      sync();
+    };
+
+    slider.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "mouse") return;
+      pointerStartX = event.clientX;
+      activePointerId = event.pointerId;
+    }, { passive: true });
+
+    slider.addEventListener("pointerup", (event) => {
+      if (pointerStartX == null || activePointerId !== event.pointerId) return;
+      onSwipe(event.clientX - pointerStartX);
+      pointerStartX = null;
+      activePointerId = null;
+    }, { passive: true });
+
+    slider.addEventListener("pointercancel", () => {
+      pointerStartX = null;
+      activePointerId = null;
+    }, { passive: true });
 
     sync();
     slider.dataset.ready = "1";

@@ -131,7 +131,7 @@ body[data-page="home"] .home-section-shortlet {
   display: flex;
   width: 100%;
   height: 100%;
-  transition: transform 0.35s ease;
+  transition: transform 0.22s ease-out;
 }
 
 .home-media-slide {
@@ -139,7 +139,7 @@ body[data-page="home"] .home-section-shortlet {
   height: 100%;
   flex: 0 0 100%;
   object-fit: cover;
-  transition: transform 1s ease;
+  transition: transform 0.35s ease;
 }
 
 .home-listing-card:hover .home-media-slide,
@@ -246,28 +246,23 @@ body[data-page="home"] .home-section-shortlet {
 
 @media (hover: none) {
   .home-media-slider::after,
-  .home-media-nav.next,
+  .home-media-nav,
   .home-media-dots {
     opacity: 1;
   }
 
-  .home-media-nav.next,
+  .home-media-nav,
   .home-media-dots {
     pointer-events: auto;
   }
 
-  .home-media-nav.next,
+  .home-media-nav,
   .home-media-dots {
     transform: translateY(0);
   }
 
+  .home-media-nav.prev,
   .home-media-nav.next {
-    transform: translateY(-50%) translateX(0);
-  }
-
-  .home-media-slider.is-interacted .home-media-nav.prev {
-    opacity: 1;
-    pointer-events: auto;
     transform: translateY(-50%) translateX(0);
   }
 }

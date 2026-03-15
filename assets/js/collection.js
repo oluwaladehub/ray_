@@ -247,15 +247,15 @@ function isSoldOutTag(tag) {
 
 function detailHrefForItem(item) {
   if (isSoldOutTag(item.tag)) {
-    return `/soldout/${encodeURIComponent(item.slug)}`;
+    return `/soldout-property.html?slug=${encodeURIComponent(item.slug)}`;
   }
-  return `${detailPageForType(item.propertyType)}/${encodeURIComponent(item.slug)}`;
+  return `${detailPageForType(item.propertyType)}?slug=${encodeURIComponent(item.slug)}`;
 }
 
 function detailPageForType(type) {
-  if (type === "land") return "/land";
-  if (type === "shortlet") return "/shortlet";
-  return "/housing";
+  if (type === "land") return "/land-property.html";
+  if (type === "shortlet") return "/shortlet-property.html";
+  return "/housing-property.html";
 }
 
 function formatDisplayPrice(value, type) {
@@ -290,6 +290,8 @@ function initCollectionSliders() {
     }
 
     let index = 0;
+    let pointerStartX = null;
+    let activePointerId = null;
 
     const sync = () => {
       track.style.transform = `translateX(-${index * 100}%)`;
@@ -315,6 +317,32 @@ function initCollectionSliders() {
         sync();
       }
     });
+
+    const onSwipe = (deltaX) => {
+      if (Math.abs(deltaX) < 35) return;
+      index = deltaX < 0
+        ? (index + 1 + slides.length) % slides.length
+        : (index - 1 + slides.length) % slides.length;
+      sync();
+    };
+
+    slider.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "mouse") return;
+      pointerStartX = event.clientX;
+      activePointerId = event.pointerId;
+    }, { passive: true });
+
+    slider.addEventListener("pointerup", (event) => {
+      if (pointerStartX == null || activePointerId !== event.pointerId) return;
+      onSwipe(event.clientX - pointerStartX);
+      pointerStartX = null;
+      activePointerId = null;
+    }, { passive: true });
+
+    slider.addEventListener("pointercancel", () => {
+      pointerStartX = null;
+      activePointerId = null;
+    }, { passive: true });
 
     sync();
     slider.dataset.ready = "1";

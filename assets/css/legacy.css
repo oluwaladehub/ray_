@@ -27,6 +27,13 @@ body {
   color: var(--text);
   background: radial-gradient(circle at 10% 0%, #f3ecff, #ffffff 45%);
   overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }
 
 h1, h2, h3 {
@@ -770,6 +777,7 @@ input:focus, select:focus, textarea:focus {
 .collection-page {
   background: var(--surface-soft);
   padding: 1.5rem 0 3rem;
+  min-height: calc(100vh - 220px);
 }
 
 .collection-head {
@@ -838,7 +846,7 @@ input:focus, select:focus, textarea:focus {
   display: flex;
   height: 100%;
   width: 100%;
-  transition: transform 0.35s ease;
+  transition: transform 0.22s ease-out;
 }
 
 .collection-slide {
@@ -850,7 +858,7 @@ input:focus, select:focus, textarea:focus {
 
 .collection-card:hover .collection-slide {
   transform: scale(1.04);
-  transition: transform 0.8s ease;
+  transition: transform 0.35s ease;
 }
 
 .collection-pill {
