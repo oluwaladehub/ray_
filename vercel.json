@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/housing", "destination": "/housing.html" },
+    { "source": "/land", "destination": "/land.html" },
+    { "source": "/shortlet", "destination": "/shortlet.html" },
+    { "source": "/distress-sale", "destination": "/distress-sale.html" },
+    { "source": "/snagging", "destination": "/snagging.html" },
+    { "source": "/housing/:slug", "destination": "/housing-property.html?slug=:slug" },
+    { "source": "/land/:slug", "destination": "/land-property.html?slug=:slug" },
+    { "source": "/shortlet/:slug", "destination": "/shortlet-property.html?slug=:slug" },
+    { "source": "/soldout/:slug", "destination": "/soldout-property.html?slug=:slug" }
+  ]
+}

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RaretifiedRealty | Contact</title>
+  <meta name="description" content="Contact RaretifiedRealty for property inquiries, viewing schedules, and support.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="/ray.jpeg">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="contact">
+  <header id="site-header"></header>
+
+  <main class="contact-page">
+    <section class="section contact-hero">
+      <div class="container">
+        <p class="eyebrow">Contact</p>
+        <h1 class="section-title-lg">Let us help you find the right property</h1>
+        <p class="contact-intro">
+          Have a question or want to schedule a viewing? Send us a message or reach out directly. We are here to help you every step of the way.
+        </p>
+      </div>
+    </section>
+
+    <section class="section contact-main">
+      <div class="container">
+        <div class="contact-grid">
+          <article class="contact-card">
+            <h2>Send us a message</h2>
+            <form id="contact-form" class="contact-form">
+              <div class="split-2">
+                <label><span>Full name</span><input name="name" required></label>
+                <label><span>Email</span><input type="email" name="email" required></label>
+              </div>
+              <div class="split-2">
+                <label><span>Phone</span><input name="phone"></label>
+                <label><span>Subject</span><input name="subject" placeholder="Property inquiry"></label>
+              </div>
+              <label><span>Message</span><textarea name="message" rows="5" placeholder="Tell us how we can help" required></textarea></label>
+              <div class="form-row">
+                <button type="submit" class="btn btn-primary">Send Message</button>
+                <p id="contact-form-message" class="form-msg"></p>
+              </div>
+            </form>
+          </article>
+
+          <aside class="contact-side">
+            <article class="contact-method">
+              <h3>Email Us</h3>
+              <p>For general inquiries and support.</p>
+              <a href="mailto:talktoraretified@gmail.com">talktoraretified@gmail.com</a>
+            </article>
+
+            <article class="contact-method">
+              <h3>Call Us</h3>
+              <p>Mon - Sat</p>
+              <a href="tel:+2349058886789">+234 (905) 888-6789</a>
+            </article>
+
+            <article class="contact-method">
+              <h3>Instagram</h3>
+              <p>Follow our latest updates and listings.</p>
+              <a href="https://www.instagram.com/raretifiedrealty/" target="_blank" rel="noopener noreferrer">@raretifiedrealty</a>
+            </article>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script type="module" src="assets/js/contact.js"></script>
+</body>
+</html>

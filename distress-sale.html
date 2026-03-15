@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RaretifiedRealty | Distress Sale</title>
+  <meta name="description" content="Browse verified distress sale opportunities on RaretifiedRealty.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="/ray.jpeg">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="distress" data-property-type="all" data-distress-only="true" data-page-title="Distress Sale">
+  <header id="site-header"></header>
+
+  <main class="collection-page">
+    <div class="container">
+      <section class="collection-head">
+        <p class="eyebrow">RaretifiedRealty Collection</p>
+        <h1 class="section-title-lg" id="collection-heading">Distress Sale</h1>
+        <p id="collection-count"></p>
+      </section>
+
+      <section id="collection-grid" class="collection-stack"></section>
+
+      <div class="results-footer">
+        <button id="load-more" class="btn btn-primary" type="button">Load More Properties</button>
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module" src="assets/js/collection.js"></script>
+</body>
+</html>

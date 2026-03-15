@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RaretifiedRealty | Land Details</title>
+  <meta name="description" content="Detailed land listing information and verified property data.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="land" data-property-type="land">
+  <header id="site-header"></header>
+
+  <main class="container section property-page-main">
+    <div id="property-shell"></div>
+    <section class="section">
+      <div class="section-head">
+        <h2>Similar properties</h2>
+      </div>
+      <div class="cards-grid" id="related-listings"></div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module" src="assets/js/property-detail.js"></script>
+</body>
+</html>

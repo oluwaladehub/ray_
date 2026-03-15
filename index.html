@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>RaretifiedRealty | Verified Homes in Ilorin</title>
+  <meta name="description" content="Find verified property listings in Ilorin and Nigeria with RaretifiedRealty.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="/ray.jpeg">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="home">
+  <header id="site-header"></header>
+
+  <main>
+    <section class="hero hero-home">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <h1>Find your preferred property</h1>
+        <p class="hero-sub">
+          No over priced real estate, only verifiable properties and home of distressed sales properties for discerning clients in Nigeria and diaspora.
+        </p>
+        <div class="hero-pill-tabs tabs" id="transaction-tabs" role="tablist" aria-label="Transaction type">
+          <button type="button" class="tab" data-value="commercial" data-distress-tab>Distress</button>
+          <button type="button" class="tab is-active" data-value="sale">Sale</button>
+          <button type="button" class="tab" data-value="rent" data-shortlet-tab>Shortlet</button>
+          <button type="button" class="tab" data-value="lease">Land</button>
+        </div>
+
+        <form id="hero-search-form" class="hero-search hero-search-wide">
+          <input type="hidden" name="transactionType" value="sale">
+          <div class="search-grid search-grid-home">
+            <label class="search-field">
+              <span>Location</span>
+              <select name="location" id="home-location-select"></select>
+            </label>
+            <label class="search-field">
+              <span id="home-type-label">Sale Type</span>
+              <input
+                type="text"
+                name="category"
+                id="home-category-input"
+                placeholder="Any category"
+                autocomplete="off"
+              >
+            </label>
+            <label class="search-field search-field-price">
+              <span>Price</span>
+              <div class="price-range-inputs">
+                <input name="minPrice" type="text" inputmode="numeric" placeholder="Min">
+                <span class="price-separator" aria-hidden="true">-</span>
+                <input name="maxPrice" type="text" inputmode="numeric" placeholder="Max">
+              </div>
+            </label>
+            <button type="submit" class="btn btn-search-icon" aria-label="Search">Search</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="section section-grey home-section-distress" id="distress-home-section">
+      <div class="container">
+        <div class="home-collection-head">
+          <h2 class="section-title-lg home-collection-title">Distress Sale Properties</h2>
+          <a class="home-collection-link" href="/distress-sale">
+            <span>View Collection</span>
+            <span class="line base" aria-hidden="true"></span>
+            <span class="line hover" aria-hidden="true"></span>
+          </a>
+        </div>
+        <div class="housing-grid home-collection-grid distress-grid" id="distress-collection"></div>
+      </div>
+    </section>
+
+    <section class="section section-grey home-section-listings">
+      <div class="container">
+        <div class="home-collection-head">
+          <h2 class="section-title-lg home-collection-title">Residential and commercial properties.</h2>
+          <a class="home-collection-link" href="/housing">
+            <span>View Collection</span>
+            <span class="line base" aria-hidden="true"></span>
+            <span class="line hover" aria-hidden="true"></span>
+          </a>
+        </div>
+        <div class="housing-grid home-collection-grid" id="housing-collection"></div>
+      </div>
+    </section>
+
+    <section class="section section-grey home-section-cities">
+      <div class="container">
+        <div class="home-collection-head">
+          <h2 class="section-title-lg home-collection-title">Landed properties</h2>
+          <a class="home-collection-link" href="/land">
+            <span>View Collection</span>
+            <span class="line base" aria-hidden="true"></span>
+            <span class="line hover" aria-hidden="true"></span>
+          </a>
+        </div>
+        <div class="land-grid home-collection-grid" id="land-collection"></div>
+      </div>
+    </section>
+
+    <section class="section home-section-shortlet" id="shortlet-home-section" data-shortlet-section>
+      <div class="container">
+        <div class="home-collection-head">
+          <h2 class="section-title-lg home-collection-title">Shortlets</h2>
+          <a class="home-collection-link" href="/shortlet">
+            <span>Browse Stays</span>
+            <span class="line base" aria-hidden="true"></span>
+            <span class="line hover" aria-hidden="true"></span>
+          </a>
+        </div>
+        <div class="shortlet-grid home-collection-grid home-shortlet-grid" id="shortlet-collection"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module" src="assets/js/home.js"></script>
+</body>
+</html>

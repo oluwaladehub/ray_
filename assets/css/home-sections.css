@@ -1,0 +1,669 @@
+body[data-page="home"] .home-section-listings,
+body[data-page="home"] .home-section-cities {
+  padding: 3.2rem 0 4rem;
+  background: var(--surface-soft);
+}
+
+body[data-page="home"] .home-section-distress {
+  padding: 3.2rem 0 1.2rem;
+  background: var(--surface-soft);
+}
+
+body[data-page="home"] .home-section-cities {
+  padding-top: 0.8rem;
+}
+
+body[data-page="home"] .home-section-shortlet {
+  padding: 3.2rem 0 3.8rem;
+  background: var(--surface);
+  border-top: 1px solid rgba(23, 20, 38, 0.06);
+  border-bottom: 1px solid rgba(23, 20, 38, 0.06);
+}
+
+.home-collection-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.home-collection-title {
+  margin-bottom: 0;
+  font-size: 1.77rem
+}
+
+.home-collection-link {
+  position: relative;
+  padding-bottom: 0.35rem;
+  font-size: 0.77rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.home-collection-link .line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.home-collection-link .line.base {
+  width: 100%;
+}
+
+.home-collection-link .line.hover {
+  left: auto;
+  right: 0;
+  width: 0;
+}
+
+.home-collection-link:hover .line.base {
+  width: 0;
+}
+
+.home-collection-link:hover .line.hover {
+  width: 100%;
+}
+
+.home-collection-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.housing-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.land-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.home-shortlet-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.home-listing-card {
+  display: block;
+  color: inherit;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(23, 20, 38, 0.08);
+  transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease;
+}
+
+.home-listing-card:hover,
+.home-listing-card:focus-within {
+  transform: translateY(-5px);
+  border-color: rgba(62, 0, 145, 0.24);
+  box-shadow: 0 18px 34px rgba(23, 20, 38, 0.16);
+}
+
+.home-listing-media {
+  position: relative;
+  overflow: hidden;
+  background: #e7e3ef;
+}
+
+.home-media-slider {
+  position: relative;
+  height: 100%;
+}
+
+.home-media-slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 8, 18, 0) 52%, rgba(10, 8, 18, 0.35) 100%);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.home-media-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.35s ease;
+}
+
+.home-media-slide {
+  width: 100%;
+  height: 100%;
+  flex: 0 0 100%;
+  object-fit: cover;
+  transition: transform 1s ease;
+}
+
+.home-listing-card:hover .home-media-slide,
+.home-shortlet-card:hover .home-media-slide {
+  transform: scale(1.04);
+}
+
+.home-media-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #141022;
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease, background-color 0.2s ease;
+}
+
+.home-media-nav.prev {
+  left: 0.55rem;
+  transform: translateY(-50%) translateX(-6px);
+}
+
+.home-media-nav.next {
+  right: 0.55rem;
+  transform: translateY(-50%) translateX(6px);
+}
+
+.home-media-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.6rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.home-media-dot {
+  width: 6px;
+  height: 6px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+
+.home-media-dot.is-active {
+  background: #fff;
+}
+
+.home-listing-card:hover .home-media-slider::after,
+.home-listing-card:focus-within .home-media-slider::after,
+.home-shortlet-card:hover .home-media-slider::after,
+.home-shortlet-card:focus-within .home-media-slider::after {
+  opacity: 1;
+}
+
+.home-listing-card:hover .home-media-nav.next,
+.home-listing-card:focus-within .home-media-nav.next,
+.home-shortlet-card:hover .home-media-nav.next,
+.home-shortlet-card:focus-within .home-media-nav.next {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.home-listing-card:hover .home-media-nav.next,
+.home-listing-card:focus-within .home-media-nav.next,
+.home-shortlet-card:hover .home-media-nav.next,
+.home-shortlet-card:focus-within .home-media-nav.next {
+  transform: translateY(-50%) translateX(0);
+}
+
+.home-listing-card:hover .home-media-slider.is-interacted .home-media-nav.prev,
+.home-listing-card:focus-within .home-media-slider.is-interacted .home-media-nav.prev,
+.home-shortlet-card:hover .home-media-slider.is-interacted .home-media-nav.prev,
+.home-shortlet-card:focus-within .home-media-slider.is-interacted .home-media-nav.prev {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) translateX(0);
+}
+
+.home-listing-card:hover .home-media-dots,
+.home-listing-card:focus-within .home-media-dots,
+.home-shortlet-card:hover .home-media-dots,
+.home-shortlet-card:focus-within .home-media-dots {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .home-media-slider::after,
+  .home-media-nav.next,
+  .home-media-dots {
+    opacity: 1;
+  }
+
+  .home-media-nav.next,
+  .home-media-dots {
+    pointer-events: auto;
+  }
+
+  .home-media-nav.next,
+  .home-media-dots {
+    transform: translateY(0);
+  }
+
+  .home-media-nav.next {
+    transform: translateY(-50%) translateX(0);
+  }
+
+  .home-media-slider.is-interacted .home-media-nav.prev {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+.home-listing-price {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.52rem 0.75rem;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.home-listing-info {
+  margin-top: 0;
+  padding: 1rem 1rem 1.08rem;
+}
+
+.home-listing-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+
+.home-listing-row h3 {
+  margin: 0;
+  font-size: 1.32rem;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.home-listing-location {
+  margin: 0;
+  color: rgba(23, 20, 38, 0.5);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.home-listing-stats {
+  margin-top: 0.95rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem 1.2rem;
+  color: rgba(23, 20, 38, 0.66);
+  font-size: 0.92rem;
+}
+
+.home-land-card {
+  text-align: left;
+}
+
+.home-land-card .home-listing-media {
+  height: 24rem;
+  border-radius: 16px;
+}
+
+.home-land-card .home-listing-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(62, 0, 145, 0.14);
+  transition: background 0.35s ease;
+}
+
+.home-land-card:hover .home-listing-media::after {
+  background: rgba(62, 0, 145, 0.04);
+}
+
+.home-land-card h3 {
+  margin: 0;
+  font-size: 1.32rem;
+  color: var(--text);
+}
+
+.home-land-card p {
+  margin: 0;
+}
+
+.home-land-location {
+  margin-top: 0.2rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.home-land-price {
+  margin-top: 0.38rem;
+  font-family: "Sora", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.home-empty {
+  margin: 0;
+  grid-column: 1 / -1;
+  padding: 1.1rem 1.3rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.home-housing-card .home-listing-media {
+  height: 25rem;
+  border-radius: 0;
+}
+
+.home-shortlet-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  min-height: 26rem;
+  display: flex;
+  align-items: flex-end;
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(23, 20, 38, 0.16);
+  border: 1px solid var(--border);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.home-shortlet-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(62, 0, 145, 0.3);
+  box-shadow: 0 18px 34px rgba(23, 20, 38, 0.2);
+}
+
+.home-shortlet-media {
+  position: absolute;
+  inset: 0;
+}
+
+.home-shortlet-media .home-media-slider,
+.home-shortlet-media .home-media-track,
+.home-shortlet-media .home-media-slide {
+  height: 100%;
+}
+
+.home-shortlet-media .home-media-slide {
+  width: 100%;
+  object-fit: cover;
+}
+
+.home-shortlet-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(62, 0, 145, 0.08) 18%, rgba(50, 0, 116, 0.84) 100%);
+}
+
+.home-shortlet-content {
+  position: relative;
+  z-index: 1;
+  width: calc(100% - 1rem);
+  margin: 0 0.5rem 0.5rem;
+  padding: 0.9rem 0.85rem 0.85rem;
+  border-radius: 14px;
+  background: rgba(12, 8, 20, 0.48);
+  backdrop-filter: blur(6px);
+}
+
+.home-shortlet-price {
+  margin: 0 0 0.15rem;
+  color: #fff;
+  font-family: "Sora", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.home-shortlet-title {
+  margin: 0;
+  color: #fff;
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+
+.home-shortlet-location {
+  margin: 0.2rem 0 0.65rem;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.home-shortlet-amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.home-shortlet-amenities span {
+  border-radius: 999px;
+  padding: 0.28rem 0.6rem;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  color: #fff;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-distress-card .home-listing-media {
+  height: 23rem;
+}
+
+.home-distress-tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  background: rgba(62, 0, 145, 0.92);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.42rem 0.68rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.home-distress-tag.is-sold-out {
+  background: #b91c1c;
+}
+
+.home-skeleton {
+  display: block;
+}
+
+.home-skeleton-media {
+  width: 100%;
+  border-radius: 12px;
+  background: linear-gradient(100deg, #ebe6f5 20%, #f6f3fb 50%, #ebe6f5 80%);
+  background-size: 220% 100%;
+  animation: home-skeleton-shimmer 1.15s linear infinite;
+}
+
+.home-skeleton-content {
+  margin-top: 1rem;
+}
+
+.home-skeleton-line {
+  height: 0.9rem;
+  border-radius: 999px;
+  background: linear-gradient(100deg, #ece7f5 20%, #f8f5fd 50%, #ece7f5 80%);
+  background-size: 220% 100%;
+  animation: home-skeleton-shimmer 1.15s linear infinite;
+}
+
+.home-skeleton-line + .home-skeleton-line {
+  margin-top: 0.65rem;
+}
+
+.home-skeleton-line.lg {
+  width: 76%;
+}
+
+.home-skeleton-line.md {
+  width: 58%;
+}
+
+.home-skeleton-line.sm {
+  width: 42%;
+}
+
+.home-skeleton-housing .home-skeleton-media {
+  height: 25rem;
+}
+
+.home-skeleton-land .home-skeleton-media {
+  height: 24rem;
+  border-radius: 16px;
+}
+
+.home-skeleton-shortlet {
+  min-height: 26rem;
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+}
+
+.home-skeleton-shortlet .home-skeleton-media {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  border-radius: 0;
+}
+
+.home-skeleton-shortlet .home-skeleton-content {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  margin-top: 0;
+}
+
+.home-skeleton-shortlet .home-skeleton-line {
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0.25) 20%, rgba(255, 255, 255, 0.45) 50%, rgba(255, 255, 255, 0.25) 80%);
+}
+
+@keyframes home-skeleton-shimmer {
+  0% {
+    background-position: 140% 0;
+  }
+  100% {
+    background-position: -80% 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .housing-grid,
+  .land-grid,
+  .home-shortlet-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-housing-card .home-listing-media,
+  .home-land-card .home-listing-media,
+  .home-distress-card .home-listing-media {
+    height: 21rem;
+  }
+
+  .home-skeleton-housing .home-skeleton-media,
+  .home-skeleton-land .home-skeleton-media {
+    height: 21rem;
+  }
+
+  .home-shortlet-card {
+    min-height: 22rem;
+  }
+
+  .home-skeleton-shortlet {
+    min-height: 22rem;
+  }
+
+  .home-listing-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-page="home"] .home-section-listings,
+  body[data-page="home"] .home-section-cities {
+    padding: 2.6rem 0;
+  }
+
+  body[data-page="home"] .home-section-shortlet {
+    padding: 2.6rem 0;
+  }
+
+  .home-collection-head {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1.35rem;
+  }
+
+  .housing-grid,
+  .land-grid,
+  .home-shortlet-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-housing-card .home-listing-media,
+  .home-land-card .home-listing-media,
+  .home-distress-card .home-listing-media {
+    height: 18.5rem;
+  }
+
+  .home-skeleton-housing .home-skeleton-media,
+  .home-skeleton-land .home-skeleton-media {
+    height: 18.5rem;
+  }
+
+  .home-shortlet-card {
+    min-height: 20rem;
+  }
+
+  .home-skeleton-shortlet {
+    min-height: 20rem;
+  }
+
+  .home-listing-row h3,
+  .home-land-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .home-shortlet-title {
+    font-size: 1.05rem;
+  }
+}
