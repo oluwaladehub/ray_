@@ -1,9 +1,6 @@
 import { escapeHtml, formatPrice, stateToQuery } from "./utils.js";
 import { initCommon, isDistressSaleEnabled, isShortletEnabled } from "./common.js";
-
-const SUPABASE_URL = "https://llsfcwbunbvewfpraheo.supabase.co";
-const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxsc2Zjd2J1bmJ2ZXdmcHJhaGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4ODU1MzQsImV4cCI6MjA4NzQ2MTUzNH0.J3VKGJj06F90EEF4egXUiaboW1EEdpVcNgxbiS3xWls";
+import { getSupabaseConfig } from "./config.js";
 const PROPERTY_SELECT = `
   id,
   slug,
@@ -494,7 +491,9 @@ async function hydrateHomepageFromSupabase() {
 function createSupabaseClient() {
   const factory = window.supabase?.createClient;
   if (typeof factory !== "function") return null;
-  return factory(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const cfg = getSupabaseConfig();
+  if (!cfg) return null;
+  return factory(cfg.url, cfg.anonKey);
 }
 
 async function fetchHomepagePropertiesByType(supabase, propertyType) {

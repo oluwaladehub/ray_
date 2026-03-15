@@ -1,8 +1,5 @@
 import { escapeHtml } from "./utils.js";
-
-const SUPABASE_URL = "https://llsfcwbunbvewfpraheo.supabase.co";
-const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxsc2Zjd2J1bmJ2ZXdmcHJhaGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4ODU1MzQsImV4cCI6MjA4NzQ2MTUzNH0.J3VKGJj06F90EEF4egXUiaboW1EEdpVcNgxbiS3xWls";
+import { getSupabaseConfig } from "./config.js";
 let distressEnabledPromise = null;
 let shortletEnabledPromise = null;
 
@@ -178,7 +175,9 @@ function bindFeatureVisibilityRefresh(page) {
 function createSupabaseClient() {
   const factory = window.supabase?.createClient;
   if (typeof factory !== "function") return null;
-  return factory(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const cfg = getSupabaseConfig();
+  if (!cfg) return null;
+  return factory(cfg.url, cfg.anonKey);
 }
 
 export async function isDistressSaleEnabled() {

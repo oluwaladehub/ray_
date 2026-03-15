@@ -1,4 +1,12 @@
 {
+  "headers": [
+    {
+      "source": "/assets/js/public-config.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, max-age=0" }
+      ]
+    }
+  ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/housing", "destination": "/housing.html" },

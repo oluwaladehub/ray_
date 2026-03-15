@@ -1,9 +1,6 @@
 import { escapeHtml, formatPrice, queryToState } from "./utils.js";
 import { initCommon } from "./common.js";
-
-const SUPABASE_URL = "https://llsfcwbunbvewfpraheo.supabase.co";
-const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxsc2Zjd2J1bmJ2ZXdmcHJhaGVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4ODU1MzQsImV4cCI6MjA4NzQ2MTUzNH0.J3VKGJj06F90EEF4egXUiaboW1EEdpVcNgxbiS3xWls";
+import { getSupabaseConfig } from "./config.js";
 const WHATSAPP_NUMBER = "2349058886789";
 const CLIENT_SESSION_KEY = "rr_client_session_id";
 const PROPERTY_SELECT = `
@@ -76,7 +73,9 @@ async function renderPage() {
 function createSupabaseClient() {
   const factory = window.supabase?.createClient;
   if (typeof factory !== "function") return null;
-  return factory(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const cfg = getSupabaseConfig();
+  if (!cfg) return null;
+  return factory(cfg.url, cfg.anonKey);
 }
 
 async function fetchProperty(supabase, type, slug) {
@@ -623,4 +622,3 @@ function collectionPageForType(type) {
   if (type === "shortlet") return "/shortlet";
   return "/housing";
 }
-
