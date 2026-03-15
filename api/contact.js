@@ -49,14 +49,48 @@ export default async function handler(req, res) {
     ].join("\n");
 
     const html = `
-      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #111827;">
-        <h2 style="margin: 0 0 12px;">New Contact Enquiry</h2>
-        <p><strong>Name:</strong> ${escapeHtml(fullName)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Phone:</strong> ${escapeHtml(phone || "-")}</p>
-        <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
-        <p><strong>Message:</strong></p>
-        <p style="white-space: pre-wrap;">${escapeHtml(message)}</p>
+      <div style="margin:0;padding:24px;background:#f5f3ff;font-family:Inter,Segoe UI,Arial,sans-serif;color:#0f172a;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;margin:0 auto;background:#ffffff;border:1px solid #e9dfff;border-radius:14px;overflow:hidden;">
+          <tr>
+            <td style="padding:20px 24px;background:linear-gradient(135deg,#3e0091,#5a1bb3);">
+              <p style="margin:0;color:#dccdff;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;">RaretifiedRealty</p>
+              <h1 style="margin:8px 0 0;color:#ffffff;font-size:20px;line-height:1.3;">New Contact Enquiry</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:22px 24px 10px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+                <tr>
+                  <td style="padding:10px 0;border-bottom:1px solid #f1e8ff;width:140px;color:#6b7280;font-size:13px;font-weight:600;">Full name</td>
+                  <td style="padding:10px 0;border-bottom:1px solid #f1e8ff;font-size:14px;">${escapeHtml(fullName)}</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 0;border-bottom:1px solid #f1e8ff;width:140px;color:#6b7280;font-size:13px;font-weight:600;">Email</td>
+                  <td style="padding:10px 0;border-bottom:1px solid #f1e8ff;font-size:14px;">${escapeHtml(email)}</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 0;border-bottom:1px solid #f1e8ff;width:140px;color:#6b7280;font-size:13px;font-weight:600;">Phone</td>
+                  <td style="padding:10px 0;border-bottom:1px solid #f1e8ff;font-size:14px;">${escapeHtml(phone || "-")}</td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 0;width:140px;color:#6b7280;font-size:13px;font-weight:600;">Subject</td>
+                  <td style="padding:10px 0;font-size:14px;">${escapeHtml(subject)}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 24px 24px;">
+              <p style="margin:0 0 8px;font-size:13px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;">Message</p>
+              <div style="background:#faf7ff;border:1px solid #eadfff;border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.65;white-space:pre-wrap;">${escapeHtml(message)}</div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:14px 24px;background:#fcfbff;border-top:1px solid #f1e8ff;">
+              <p style="margin:0;color:#7c3aed;font-size:12px;">Submitted from website contact form</p>
+            </td>
+          </tr>
+        </table>
       </div>
     `;
 
@@ -91,4 +125,3 @@ export default async function handler(req, res) {
     return res.status(500).json({ ok: false, error: message });
   }
 }
-
