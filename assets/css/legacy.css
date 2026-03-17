@@ -2057,8 +2057,13 @@ body.modal-open {
   }
 
   .property-page-main {
-    padding-top: 4.5rem;
+    padding-top: 2.1rem;
     padding-bottom: 2.5rem;
+  }
+
+  .contact-hero {
+    padding-top: 2.2rem;
+    padding-bottom: 1.6rem;
   }
 
   body[data-property-type="housing"] .property-page-main,
@@ -2178,8 +2183,13 @@ body.modal-open {
 
 @media (max-width: 480px) {
   .property-page-main {
-    padding-top: 4.3rem;
+    padding-top: 1.8rem;
     padding-bottom: 2.1rem;
+  }
+
+  .contact-hero {
+    padding-top: 1.7rem;
+    padding-bottom: 1.3rem;
   }
 
   .property-main-image {
