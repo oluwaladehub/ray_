@@ -114,6 +114,7 @@ body[data-page="home"] .home-section-shortlet {
 .home-media-slider {
   position: relative;
   height: 100%;
+  touch-action: pan-y;
 }
 
 .home-media-slider::after {

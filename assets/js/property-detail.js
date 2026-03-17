@@ -66,8 +66,8 @@ async function renderPage() {
     : `<article class="property-card"><p>No similar properties available right now.</p></article>`;
 
   bindGallery(property.imageUrls);
-  bindInquiryForm(property);
   bindBookingWidget(property);
+  bindFloatingEnquiry(property);
 }
 
 function createSupabaseClient() {
@@ -192,7 +192,6 @@ function propertyTemplate(property) {
 
   const typeTitle = pageType === "land" ? "Land" : "Housing";
   const badge = "For Sale";
-  const widget = inquiryWidgetTemplate(property);
   const sectionTitle = pageType === "land" ? "About this land" : "About this home";
   const featureTitle = pageType === "land" ? "Features & Details" : "Property Features";
   const noteTitle = pageType === "land" ? "Verified Property" : "Secure Transaction";
@@ -257,13 +256,14 @@ function propertyTemplate(property) {
       </article>
 
       <aside class="shortlet-side">
-        ${widget}
         <div class="shortlet-security-note">
           <h3>${noteTitle}</h3>
           <p>${noteText}</p>
         </div>
       </aside>
     </section>
+    ${floatingWhatsAppTemplate(property)}
+    ${floatingInquiryModalTemplate(property)}
   `;
 }
 
@@ -373,27 +373,12 @@ function shortletRulesTemplate() {
   `;
 }
 
-function inquiryWidgetTemplate(property) {
-  return `
-    <hr>
-    <form id="inquiry-form" data-title="${escapeHtml(property.title)}" data-price="${escapeHtml(property.priceDisplay)}">
-      <label><span>Full name</span><input name="name" required></label>
-      <label><span>Phone</span><input name="phone" required></label>
-      <label><span>Email (optional)</span><input type="email" name="email"></label>
-      <label><span>Message (optional)</span><textarea name="message" rows="3" placeholder="Any additional details"></textarea></label>
-      <div class="form-row">
-        <button type="submit" class="btn btn-primary">WhatsApp Send Enquiry</button>
-      </div>
-    </form>
-  `;
-}
-
 function bookingWidgetTemplate(property) {
   const today = new Date().toISOString().split("T")[0];
   const tomorrow = getTomorrowIso(today);
   return `
     <hr>
-    <form id="booking-form" data-title="${escapeHtml(property.title)}" data-price="${escapeHtml(property.priceDisplay)}" data-price-numeric="${property.priceNumeric}">
+    <form id="booking-form" class="booking-form" data-title="${escapeHtml(property.title)}" data-price="${escapeHtml(property.priceDisplay)}" data-price-numeric="${property.priceNumeric}">
       <label><span>Full name</span><input name="name" required></label>
       <label><span>Phone</span><input name="phone" required></label>
       <div class="split-2">
@@ -406,6 +391,44 @@ function bookingWidgetTemplate(property) {
       </div>
       <p class="booking-summary" id="booking-summary"></p>
     </form>
+  `;
+}
+
+function floatingWhatsAppTemplate(property) {
+  const label = `Quick enquiry for ${property.title}`;
+  return `
+    <button type="button" class="floating-whatsapp-btn" id="floating-whatsapp-btn" aria-label="${escapeHtml(label)}">
+      <span class="floating-whatsapp-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" focusable="false">
+          <path d="M12.04 2.01C6.56 2.01 2.11 6.46 2.11 11.94c0 1.75.46 3.47 1.33 4.98L2 22l5.27-1.38a9.9 9.9 0 0 0 4.77 1.22h.01c5.48 0 9.93-4.45 9.93-9.93S17.53 2.01 12.04 2.01zm0 18.18h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.32a8.25 8.25 0 0 1-1.26-4.39 8.25 8.25 0 0 1 8.24-8.24 8.25 8.25 0 0 1 8.24 8.24 8.25 8.25 0 0 1-8.24 8.26zm4.52-6.18c-.24-.12-1.4-.69-1.62-.77-.22-.08-.38-.12-.54.12-.16.24-.62.77-.76.93-.14.16-.28.18-.52.06-.24-.12-1.03-.38-1.96-1.21-.73-.65-1.22-1.46-1.36-1.7-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.51.58.18 1.11.16 1.53.1.47-.07 1.4-.57 1.6-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.46-.28z"></path>
+        </svg>
+      </span>
+      <span>WhatsApp</span>
+    </button>
+  `;
+}
+
+function floatingInquiryModalTemplate(property) {
+  return `
+    <div class="inquiry-modal" id="floating-inquiry-modal" aria-hidden="true">
+      <button type="button" class="inquiry-modal-backdrop" data-modal-close aria-label="Close enquiry modal"></button>
+      <article class="inquiry-modal-card" role="dialog" aria-modal="true" aria-labelledby="floating-inquiry-title">
+        <div class="inquiry-modal-head">
+          <h2 id="floating-inquiry-title">Send Enquiry</h2>
+          <button type="button" class="inquiry-modal-close" data-modal-close aria-label="Close enquiry form">x</button>
+        </div>
+        <p class="inquiry-modal-sub">Property: ${escapeHtml(property.title)}</p>
+        <form id="floating-inquiry-form" class="inquiry-form" data-title="${escapeHtml(property.title)}" data-price="${escapeHtml(property.priceDisplay)}">
+          <label><span>Full name</span><input name="name" placeholder="Your name" required></label>
+          <label><span>Phone</span><input name="phone" inputmode="tel" placeholder="Phone number" required></label>
+          <label><span>Email (optional)</span><input type="email" name="email" placeholder="name@email.com"></label>
+          <label><span>Message (optional)</span><textarea name="message" rows="3" placeholder="Any additional details"></textarea></label>
+          <div class="form-row">
+            <button type="submit" class="btn btn-primary">Send Enquiry on WhatsApp</button>
+          </div>
+        </form>
+      </article>
+    </div>
   `;
 }
 
@@ -422,34 +445,6 @@ function bindGallery(images) {
     mainImage.src = src;
     row.querySelectorAll(".thumb").forEach((item) => item.classList.remove("is-active"));
     thumb.classList.add("is-active");
-  });
-}
-
-function bindInquiryForm(property) {
-  const form = document.getElementById("inquiry-form");
-  if (!form) return;
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    if (!form.reportValidity()) return;
-    const name = form.elements.name.value.trim();
-    const phone = form.elements.phone.value.trim();
-    const email = form.elements.email.value.trim();
-    const note = form.elements.message.value.trim();
-    const emailLine = email ? ` Email: ${email}.` : "";
-    const noteLine = note ? ` Message: ${note}.` : "";
-    const text = `Hello, my name is ${name}. I am interested in "${property.title}" listed at ${property.priceDisplay}. You can reach me on ${phone}.${emailLine}${noteLine}`;
-    const payload = {
-      eventType: "whatsapp_click",
-      propertySlug: property.slug,
-      pagePath: window.location.pathname,
-      sessionId: getOrCreateClientSessionId(),
-      fullName: name,
-      phone,
-      email: email || null,
-      message: text,
-    };
-    const enquiry = await submitPublicEnquiry(payload);
-    openWhatsApp(text, enquiry?.whatsappUrl);
   });
 }
 
@@ -524,6 +519,65 @@ function bindBookingWidget(property) {
         submitButton.textContent = "Check Availability on WhatsApp";
       }
     }
+  });
+}
+
+function bindFloatingEnquiry(property) {
+  const button = document.getElementById("floating-whatsapp-btn");
+  const modal = document.getElementById("floating-inquiry-modal");
+  const form = document.getElementById("floating-inquiry-form");
+  if (!button || !modal || !form) return;
+
+  const closeModal = () => {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  };
+
+  const openModal = () => {
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+  };
+
+  button.addEventListener("click", openModal);
+
+  modal.addEventListener("click", (event) => {
+    const close = event.target.closest("[data-modal-close]");
+    if (close) {
+      closeModal();
+    }
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal.classList.contains("open")) {
+      closeModal();
+    }
+  });
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    const name = form.elements.name.value.trim();
+    const phone = form.elements.phone.value.trim();
+    const email = form.elements.email.value.trim();
+    const note = form.elements.message.value.trim();
+    const emailLine = email ? ` Email: ${email}.` : "";
+    const noteLine = note ? ` Message: ${note}.` : "";
+    const text = `Hello, my name is ${name}. I am interested in "${property.title}" listed at ${property.priceDisplay}. You can reach me on ${phone}.${emailLine}${noteLine}`;
+    const payload = {
+      eventType: "whatsapp_click",
+      propertySlug: property.slug,
+      pagePath: window.location.pathname,
+      sessionId: getOrCreateClientSessionId(),
+      fullName: name,
+      phone,
+      email: email || null,
+      message: text,
+    };
+    const enquiry = await submitPublicEnquiry(payload);
+    closeModal();
+    openWhatsApp(text, enquiry?.whatsappUrl);
   });
 }
 

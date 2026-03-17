@@ -109,7 +109,7 @@ function bindMobileNav() {
     document.body.classList.toggle("nav-open", open);
   };
 
-  toggle.setAttribute("aria-expanded", "false");
+  syncState(false);
   nav.querySelectorAll("a").forEach((item, index) => {
     item.style.setProperty("--nav-i", String(index));
   });
@@ -139,6 +139,10 @@ function bindMobileNav() {
       syncState(false);
     }
   });
+
+  // Ensure no stale off-canvas state survives page navigation or bfcache restores.
+  window.addEventListener("pageshow", () => syncState(false));
+  window.addEventListener("pagehide", () => syncState(false));
 }
 
 function bindHeaderScroll(page) {

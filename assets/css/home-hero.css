@@ -345,6 +345,14 @@ body[data-page="home"] .site-header.scrolled .mobile-toggle-icon {
 }
 
 @media (max-width: 760px) {
+  body[data-page="home"] .site-header.scrolled .nav.open a {
+    color: var(--text);
+  }
+
+  body[data-page="home"] .site-header.scrolled .nav.open a.active {
+    color: var(--primary);
+  }
+
   body[data-page="home"] .site-header,
   body[data-page="home"] .site-header.scrolled {
     background: rgba(62, 0, 145, 0.38);

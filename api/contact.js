@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     }
 
     const apiKey = process.env.RESEND_API_KEY;
-    const toEmail = process.env.CONTACT_TO_EMAIL || "talktoraretified@gmail.com";
+    const toEmail = process.env.CONTACT_TO_EMAIL || "talktoraretifiedrealty@gmail.com";
     const fromEmail = process.env.RESEND_FROM_EMAIL || "RaretifiedRealty <onboarding@resend.dev>";
 
     if (!apiKey) {

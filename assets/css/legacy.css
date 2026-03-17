@@ -20,6 +20,8 @@
 html, body {
   margin: 0;
   padding: 0;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
 }
 
 body {
@@ -829,6 +831,7 @@ input:focus, select:focus, textarea:focus {
 .collection-slider {
   position: relative;
   height: 100%;
+  touch-action: pan-y;
 }
 
 .collection-slider::after {
@@ -1204,6 +1207,138 @@ input:focus, select:focus, textarea:focus {
   color: var(--text-muted);
   font-size: 0.88rem;
   line-height: 1.45;
+}
+
+.inquiry-form,
+.booking-form {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.inquiry-form label,
+.booking-form label {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.inquiry-form .form-row,
+.booking-form .form-row {
+  margin-top: 0.2rem;
+}
+
+.inquiry-form .btn,
+.booking-form .btn {
+  width: 100%;
+  min-height: 46px;
+}
+
+.floating-whatsapp-btn {
+  display: none;
+  align-items: center;
+  gap: 0.45rem;
+  position: fixed;
+  right: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  z-index: 65;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.62rem 0.88rem;
+  background: #25d366;
+  color: #fff;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  box-shadow: 0 12px 24px rgba(20, 112, 57, 0.36);
+  cursor: pointer;
+}
+
+.floating-whatsapp-btn:hover {
+  background: #1fb85a;
+}
+
+.floating-whatsapp-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-whatsapp-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: #fff;
+}
+
+.inquiry-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.inquiry-modal.open {
+  display: flex;
+}
+
+.inquiry-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(10, 8, 20, 0.48);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.inquiry-modal-card {
+  position: relative;
+  z-index: 1;
+  width: min(560px, 100%);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #fff;
+  padding: 0.95rem;
+  box-shadow: 0 18px 36px rgba(23, 20, 38, 0.22);
+}
+
+.inquiry-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.25rem;
+}
+
+.inquiry-modal-head h2 {
+  margin: 0;
+  font-size: 1.08rem;
+}
+
+.inquiry-modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.inquiry-modal-sub {
+  margin: 0 0 0.7rem;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+body.modal-open {
+  overflow: hidden;
 }
 
 .property-card .stats {
@@ -1765,6 +1900,8 @@ input:focus, select:focus, textarea:focus {
     overflow-y: auto;
     z-index: 60;
     box-shadow: 0 20px 38px rgba(23, 20, 38, 0.28);
+    visibility: hidden;
+    pointer-events: none;
   }
 
   .nav a, .nav .btn {
@@ -1835,6 +1972,14 @@ input:focus, select:focus, textarea:focus {
     color: var(--text);
   }
 
+  body[data-page="home"] .site-header.scrolled .nav.open a {
+    color: var(--text);
+  }
+
+  body[data-page="home"] .site-header.scrolled .nav.open a.active {
+    color: var(--primary);
+  }
+
   .nav-backdrop {
     position: fixed;
     inset: 0;
@@ -1858,6 +2003,8 @@ input:focus, select:focus, textarea:focus {
 
   .nav.open {
     transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .hero {
@@ -1914,6 +2061,11 @@ input:focus, select:focus, textarea:focus {
     padding-bottom: 2.5rem;
   }
 
+  body[data-property-type="housing"] .property-page-main,
+  body[data-property-type="land"] .property-page-main {
+    padding-bottom: 5.9rem;
+  }
+
   .property-gallery,
   .property-card {
     padding: 0.85rem;
@@ -1952,8 +2104,32 @@ input:focus, select:focus, textarea:focus {
     align-items: flex-start;
   }
 
+  .property-breadcrumb {
+    font-size: 0.8rem;
+    word-break: break-word;
+  }
+
+  .shortlet-title {
+    font-size: clamp(1.42rem, 7vw, 2rem);
+  }
+
   .detail-stat-grid {
     grid-template-columns: 1fr;
+  }
+
+  body[data-property-type="housing"] .floating-whatsapp-btn,
+  body[data-property-type="land"] .floating-whatsapp-btn {
+    display: inline-flex;
+  }
+
+  .inquiry-modal {
+    padding: 0.6rem;
+  }
+
+  .inquiry-modal-card {
+    border-radius: 14px;
+    max-height: min(82dvh, 700px);
+    overflow-y: auto;
   }
 
   .results-actions {
